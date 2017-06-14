@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/cssreset.css">
+</head>
+<body>
+<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+<div id="main" style="width: 1200px;height:500px;"></div>
+
+<script type="text/javascript" src="js/APPzhishu.js"></script>
+<script type="text/javascript" src="js/echarts.common.min.js"></script>
+<script>
+
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    appData.length = 12;
+    var nameData = [];
+    var UseNum = [];
+    var zengfuArr = [];
+    var colors = ['#5793f3', '#d14a61', '#675bba'];
+    for (var i in appData) {
+        nameData.push(appData[i].AppName);
+        UseNum.push(appData[i].UseNum);
+        zengfuArr.push(appData[i].Growth);
+    }
+    console.log(zengfuArr);
+
+    // 指定图表的配置项和数据
+    var option = {
+        color: colors,
+        title: {
+            text: '2017年4月全部行业APP月度独立设备数',
+            x:'center'
+        },
+        tooltip: {},
+        legend: {
+            data: ['设备数', '环比增幅'],
+//            x:'1100px',
+//            y:'10px',
+            x: '70%',
+            margin: [50,0,0,0]
+
+        },
+        xAxis: [{
+            data: nameData,
+            axisLine: {
+                onZero: false,
+                lineStyle: {
+                    color: colors[1]
+                }
+            },
+        }],
+        yAxis: [
+            {
+                type: 'value',
+                name: '设备数',
+                axisLine: {
+                    onZero: false,
+                    lineStyle: {
+                        color: colors[0]
+                    }
+                },
+            },
+            {
+                type: 'value',
+                name: '环比增幅',
+                axisLine: {
+                    onZero: false,
+                    lineStyle: {
+                        color: colors[2]
+                    }
+                },
+            }
+        ],
+        series: [{
+            name: '设备数',
+            type: 'bar',
+            data: UseNum,
+            itemStyle: {
+                normal: {
+                    barBorderRadius: [10, 10, 0, 0]
+                }
+            },
+        },
+        {
+            name: '环比增幅',
+            type: 'line',
+            yAxisIndex: 1, //指定下坐标轴为右侧
+            smooth: true,
+            data: zengfuArr
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+</script>
+
+</body>
+</html>

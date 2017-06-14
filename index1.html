@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/cssreset.css">
+</head>
+<body>
+<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+<div id="main" style="width: 1000px;height:500px;"></div>
+
+<script type="text/javascript" src="js/APPzhishu.js"></script>
+<script type="text/javascript" src="js/echarts.common.min.js"></script>
+<script>
+
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    appData.length = 12;
+    var nameData = [];
+    var UseNum = [];
+    var zengfuArr = [];
+
+    for (var i in appData) {
+        nameData.push(appData[i].AppName);
+        UseNum.push(appData[i].UseNum);
+        zengfuArr.push(appData[i].Growth);
+    }
+
+
+    option = {
+        title: {
+            text: '2017年4月全部行业APP月度独立设备数',
+            x: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: nameData
+        },
+        series: [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '60%'],
+                data: [
+                    {value: UseNum[0], name: nameData[0]},
+                    {value: UseNum[1], name: nameData[1]},
+                    {value: UseNum[2], name: nameData[2]},
+                    {value: UseNum[3], name: nameData[3]},
+                    {value: UseNum[4], name: nameData[4]},
+                    {value: UseNum[5], name: nameData[5]},
+                    {value: UseNum[6], name: nameData[6]},
+                    {value: UseNum[7], name: nameData[7]},
+                    {value: UseNum[8], name: nameData[8]},
+                    {value: UseNum[9], name: nameData[9]},
+                    {value: UseNum[10], name: nameData[10]},
+                    {value: UseNum[11], name: nameData[11]},
+                    {value: UseNum[12], name: nameData[12]}
+                ],
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+    myChart.setOption(option);
+
+</script>
+
+</body>
+</html>
